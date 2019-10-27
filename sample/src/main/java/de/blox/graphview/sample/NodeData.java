@@ -9,17 +9,25 @@ public class NodeData {
 
     private double val;
     private String text;
+
+    public String getVar() {
+        return var;
+    }
+
+    private String var;
     private int type;
 
     NodeData(String text, int type){
         this.text = text;
         this.type = type;
+        this.var = "no Value";
     }
 
-    NodeData(String text, double val, int type){
+    NodeData(String text, double val, int type, String var){
         this.val = val;
         this.text = text;
         this.type = type;
+        this.var = var;
     }
 
     public String getText(){

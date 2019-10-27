@@ -2,12 +2,11 @@ package de.blox.graphview.sample;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +33,7 @@ import de.blox.graphview.tree.BuchheimWalkerConfiguration;
 
 public class GraphActivity extends AppCompatActivity {
     private int nodeCount = 1;
-    private int finalsCount = 0;
+    private int finalsCount = 1;
     private Node currentNode;
     protected BaseGraphAdapter<ViewHolder> adapter;
 
@@ -48,6 +47,9 @@ public class GraphActivity extends AppCompatActivity {
     private Button addBtn;
     private Button removeBtn;
     private Button calculateBtn;
+    private Node root = null;
+
+    private String formula;
 
 
     int checkedRadio = 1;
@@ -92,38 +94,39 @@ public class GraphActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            if(currentNode != null && ((NodeData) currentNode.getData()).getType() == NodeData.TYPE_TERM){
+            if (currentNode != null && ((NodeData) currentNode.getData()).getType() == NodeData.TYPE_TERM) {
                 Toast.makeText(GraphActivity.this, "Узел является инициатором.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if(captionText.getText().toString().equals("")){
+            if (captionText.getText().toString().equals("")) {
                 Toast.makeText(GraphActivity.this, "Введите текст", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (currentNode != null) {
                 Node newNode;
-                if(checkedRadio == NodeData.TYPE_TERM) {
+                if (checkedRadio == NodeData.TYPE_TERM) {
                     double p = Double.parseDouble(probText.getText().toString());
                     double sum = 0.0;
-                    for(Node n : graph.successorsOf(currentNode)){
+                    for (Node n : graph.successorsOf(currentNode)) {
                         sum += ((NodeData) n.getData()).getVal();
                     }
 
 
-                    if(probText.getText().toString().equals("")){
+                    if (probText.getText().toString().equals("")) {
                         Toast.makeText(GraphActivity.this, "Введите вероятность", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if(sum + p > 1){
+                    if (sum + p > 1) {
                         Toast.makeText(GraphActivity.this, "Сумма вероятностей должна быть <= 1", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    newNode = new Node(new NodeData("[x" + (finalsCount++) + "] "
-                            + captionText.getText().toString() + "[P = " + p + "]", p, checkedRadio));
+                    newNode = new Node(new NodeData("[x" + (finalsCount) + "] "
+                            + captionText.getText().toString() + "[P = " + p + "]", p, checkedRadio, "x " + finalsCount));
+                    finalsCount++;
                 } else {
                     newNode = new Node(new NodeData(captionText.getText().toString(), checkedRadio));
                 }
@@ -132,8 +135,9 @@ public class GraphActivity extends AppCompatActivity {
                 captionText.setText("");
             }
 
-            if(graph.getNodeCount() == 0){
+            if (graph.getNodeCount() == 0) {
                 final Node newNode = new Node(new NodeData(captionText.getText().toString(), checkedRadio));
+                root = newNode;
                 //graph.addEdge(currentNode, newNode);
                 graph.addNode(newNode);
                 adapter.notifyNodeAdded(newNode);
@@ -158,11 +162,16 @@ public class GraphActivity extends AppCompatActivity {
         public void onClick(View view) {
             List<Node> nodeList = graph.getNodes();
             for (Node n : nodeList) {
-                if(((NodeData) n.getData()).getType() != NodeData.TYPE_TERM && graph.successorsOf(n).size() < 2){
+                if (((NodeData) n.getData()).getType() != NodeData.TYPE_TERM && graph.successorsOf(n).size() < 2) {
                     Toast.makeText(GraphActivity.this, "Неккоректное дерево", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
+
+            String rez = DFS(root);
+            Log.d("a" , rez);
+
+
         }
     };
 
@@ -196,16 +205,16 @@ public class GraphActivity extends AppCompatActivity {
                 RadioButton checkedRadioButton = (RadioButton) rg.findViewById(i);
                 // This puts the value (true/false) into the variable
                 boolean isChecked = checkedRadioButton.isChecked();
-                if(isChecked){
-                    if(i == R.id.and_rb) {
+                if (isChecked) {
+                    if (i == R.id.and_rb) {
                         checkedRadio = NodeData.TYPE_AND;
                         probText.setInputType(InputType.TYPE_NULL);
                     }
-                    if(i == R.id.or_rb) {
+                    if (i == R.id.or_rb) {
                         checkedRadio = NodeData.TYPE_OR;
                         probText.setInputType(InputType.TYPE_NULL);
                     }
-                    if(i == R.id.term_rb) {
+                    if (i == R.id.term_rb) {
                         checkedRadio = NodeData.TYPE_TERM;
                         probText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     }
@@ -276,6 +285,7 @@ public class GraphActivity extends AppCompatActivity {
 
             class SimpleViewHolder extends ViewHolder {
                 TextView textView;
+
                 SimpleViewHolder(View itemView) {
                     super(itemView);
                     textView = itemView.findViewById(R.id.textView);
@@ -284,6 +294,7 @@ public class GraphActivity extends AppCompatActivity {
 
             class AndViewHolder extends ViewHolder {
                 TextView textView;
+
                 AndViewHolder(View itemView) {
                     super(itemView);
                     textView = itemView.findViewById(R.id.and_text);
@@ -292,6 +303,7 @@ public class GraphActivity extends AppCompatActivity {
 
             class OrViewHolder extends ViewHolder {
                 TextView textView;
+
                 OrViewHolder(View itemView) {
                     super(itemView);
                     textView = itemView.findViewById(R.id.or_text);
@@ -300,6 +312,7 @@ public class GraphActivity extends AppCompatActivity {
 
             class TermViewHolder extends ViewHolder {
                 TextView textView;
+
                 TermViewHolder(View itemView) {
                     super(itemView);
                     textView = itemView.findViewById(R.id.term_text);
@@ -316,7 +329,6 @@ public class GraphActivity extends AppCompatActivity {
             currentNode = adapter.getNode(position);
         });
     }
-
 
 
     private void setupToolbar() {
@@ -344,21 +356,34 @@ public class GraphActivity extends AppCompatActivity {
         //final Node node2 = new Node(new NodeData(getNodeText(), checkedRadio));
         //final Node node3 = new Node(new NodeData(getNodeText(), checkedRadio));
         //final Node node4 = new Node(new NodeData(getNodeText(), checkedRadio));
-
-
-
-
         //graph.addNode(node1);
-
         //graph.addEdge(node1, node2);
         //graph.addEdge(node1, node3);
         //graph.addEdge(node1, node4);
-
-
-
-
         return graph;
     }
+
+
+    public String DFS(Node currentNode) {
+
+        List<Node> successors;
+        if (graph.hasSuccessor(currentNode)) {
+            successors = graph.successorsOf(currentNode);
+            for (int i = 0; i < successors.size(); i++) {
+                DFS(successors.get(i));
+                if (((NodeData) currentNode.getData()).getType() == NodeData.TYPE_AND) {
+                    return "!(" + DFS(successors.get(i)) + ")";
+                } else {
+                    return DFS(successors.get(i));
+
+                }
+            }
+        } else {
+            return (((NodeData) currentNode.getData()).getVar());
+        }
+        return null;
+    }
+
 
     public void setAlgorithm(GraphAdapter adapter) {
         final BuchheimWalkerConfiguration configuration = new BuchheimWalkerConfiguration.Builder()
@@ -369,6 +394,7 @@ public class GraphActivity extends AppCompatActivity {
                 .build();
         adapter.setAlgorithm(new BuchheimWalkerAlgorithm(configuration));
     }
+
     protected String getNodeText() {
         return "Node " + nodeCount++;
     }
