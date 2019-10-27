@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
@@ -172,24 +173,31 @@ public class GraphActivity extends AppCompatActivity {
 
             //1-(1-(1-(1-x1)*(1-x2))) * (1-x3*x4)
             boolean flag = false;
-            while (!flag)
-            {
+            while (!flag) {
                 if (rez.contains("!!"))
-                   rez = rez.replace("!!", "");
+                    rez = rez.replace("!!", "");
                 else
                     flag = true;
 
             }
             Log.d("a", rez);
             flag = false;
-            while (!flag)
-            {
-                if (rez.contains("!"))
-                    rez = rez.replace("!", "1-");
-                else
-                    flag = true;
-
+            while (!flag) {
+                for (int i = 0; i < graph.getNodes().size(); i++) {
+                    if (rez.contains("!x" + i))
+                        rez = rez.replace("!x" + i, "(1-x" + i + ")");
+                    else
+                        flag = true;
+                }
             }
+            String bracket = Pattern.quote(")");
+            String anotherBracket = Pattern.quote("!(");
+
+            if (rez.contains("!(")) {
+                rez = rez.replaceFirst(anotherBracket, "1-(");
+                rez = rez.replaceFirst(bracket, "))");
+            }
+
 
             Log.d("a", rez);
 
@@ -413,7 +421,7 @@ public class GraphActivity extends AppCompatActivity {
                 if (((NodeData) currentNode.getData()).getType() == NodeData.TYPE_AND) {
                     if (i == graph.successorsOf(currentNode).size() - 1)
                         a += DFS(successors.get(i)) + ")";
-                    else if (i == 0){
+                    else if (i == 0) {
                         a += "(" + DFS(successors.get(i)) + "*";
                     } else {
                         a += DFS(successors.get(i)) + "*";
