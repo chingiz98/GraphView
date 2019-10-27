@@ -395,9 +395,7 @@ public class GraphActivity extends AppCompatActivity {
                         a += DFS(successors.get(i)) + "*";
 
                 } else {
-                    if (i == graph.successorsOf(currentNode).size() - 1)
-                        a += DFS(successors.get(i));
-                    else {
+                    {
                         if (a.equals("")) {
                             a += "!(!" + DFS(successors.get(i)) + "*";
                         } else if (i == graph.successorsOf(currentNode).size() - 1) {
