@@ -126,7 +126,7 @@ public class GraphActivity extends AppCompatActivity {
                     }
 
                     newNode = new Node(new NodeData("[x" + (finalsCount) + "] "
-                            + captionText.getText().toString() + "[P = " + p + "]", p, checkedRadio, "x " + finalsCount));
+                            + captionText.getText().toString() + "[P = " + p + "]", p, checkedRadio, "x" + finalsCount));
                     finalsCount++;
                 } else {
                     newNode = new Node(new NodeData(captionText.getText().toString(), checkedRadio));
@@ -387,16 +387,27 @@ public class GraphActivity extends AppCompatActivity {
             successors = graph.successorsOf(currentNode);
             String a = "";
             for (int i = 0; i < successors.size(); i++) {
-                //DFS(successors.get(i));
+
+
                 if (((NodeData) currentNode.getData()).getType() == NodeData.TYPE_AND) {
-                    a += "!(" + DFS(successors.get(i)) + ")";
+                    if(i == graph.successorsOf(currentNode).size() - 1)
+                        a += DFS(successors.get(i));
+                    else
+                        a += DFS(successors.get(i)) + "*";
 
                 } else {
-                    a += DFS(successors.get(i));
+                    if(i == graph.successorsOf(currentNode).size() - 1)
+                        a += DFS(successors.get(i)) + ")";
+                    else if (i == 0)
+                        a += "(" + DFS(successors.get(i)) + "+";
+                    else
+                        a += DFS(successors.get(i)) + "+";
                 }
 
             }
+
             return a;
+
         } else {
             return (((NodeData) currentNode.getData()).getVar());
         }
