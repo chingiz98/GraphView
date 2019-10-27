@@ -114,6 +114,7 @@ public class GraphActivity extends AppCompatActivity {
                     }
 
 
+
                     if (probText.getText().toString().equals("")) {
                         Toast.makeText(GraphActivity.this, "Введите вероятность", Toast.LENGTH_SHORT).show();
                         return;
@@ -351,7 +352,22 @@ public class GraphActivity extends AppCompatActivity {
         final Graph graph = new Graph();
 
 
-        final Node node1 = new Node(new NodeData(getNodeText(), checkedRadio));
+        final Node node1 = new Node(new NodeData(getNodeText(), NodeData.TYPE_AND));
+        final Node node2 = new Node(new NodeData(getNodeText(), NodeData.TYPE_OR));
+        final Node node3 = new Node(new NodeData(getNodeText(), NodeData.TYPE_OR));
+        final Node node4 = new Node(new NodeData(getNodeText(), 0.5 , NodeData.TYPE_TERM, "x1"));
+        final Node node5 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x2"));
+        final Node node6 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x3"));
+        final Node node7 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x4"));
+
+        graph.addEdge(node1, node2);
+        graph.addEdge(node1, node3);
+        graph.addEdge(node2, node4);
+        graph.addEdge(node2, node5);
+        graph.addEdge(node3, node6);
+        graph.addEdge(node3, node7);
+
+        root = node1;
 
         //final Node node2 = new Node(new NodeData(getNodeText(), checkedRadio));
         //final Node node3 = new Node(new NodeData(getNodeText(), checkedRadio));
@@ -369,19 +385,22 @@ public class GraphActivity extends AppCompatActivity {
         List<Node> successors;
         if (graph.hasSuccessor(currentNode)) {
             successors = graph.successorsOf(currentNode);
+            String a = "";
             for (int i = 0; i < successors.size(); i++) {
-                DFS(successors.get(i));
+                //DFS(successors.get(i));
                 if (((NodeData) currentNode.getData()).getType() == NodeData.TYPE_AND) {
-                    return "!(" + DFS(successors.get(i)) + ")";
-                } else {
-                    return DFS(successors.get(i));
+                    a += "!(" + DFS(successors.get(i)) + ")";
 
+                } else {
+                    a += DFS(successors.get(i));
                 }
+
             }
+            return a;
         } else {
             return (((NodeData) currentNode.getData()).getVar());
         }
-        return null;
+
     }
 
 
