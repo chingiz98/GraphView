@@ -23,18 +23,101 @@
     <de.blox.graphview.GraphView
         android:id="@+id/graph"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="484dp"
         android:layout_marginTop="?attr/actionBarSize"
-        app:lineColor="@android:color/holo_blue_dark"
-        app:maxZoom="5.5"/>
+        app:lineColor="@android:color/holo_green_dark"
+        app:maxZoom="5.5" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/addNode"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_white_24dp"
-        />
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/radio_group"
+            android:checkedButton="@id/and_rb">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AND"
+                android:id="@+id/and_rb"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:id="@+id/or_rb"
+                android:layout_weight="1"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TERMINAL"
+                android:id="@+id/term_rb"
+                android:layout_weight="1"/>
+
+        </RadioGroup>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/caption_et"
+                android:hint="Текст"
+                android:layout_weight="1"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prob_et"
+                android:hint="Вероятность"
+                android:layout_weight="1"
+                android:inputType="none"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle">
+
+            <Button
+                android:id="@+id/add_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ADD"
+                style="?android:attr/buttonBarStyle"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"/>
+
+            <Button
+                android:id="@+id/remove_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="REMOVE"
+                style="?android:attr/buttonBarStyle"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                />
+
+            <Button
+                android:id="@+id/calc_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CALCULATE"
+                style="?android:attr/buttonBarStyle"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
