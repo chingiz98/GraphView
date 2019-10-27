@@ -390,9 +390,13 @@ public class GraphActivity extends AppCompatActivity {
 
                 if (((NodeData) currentNode.getData()).getType() == NodeData.TYPE_AND) {
                     if (i == graph.successorsOf(currentNode).size() - 1)
-                        a += DFS(successors.get(i));
-                    else
+                        a += DFS(successors.get(i)) + ")";
+                    else if (i == 0){
+                        a += "(" + DFS(successors.get(i)) + "*";
+                    } else {
                         a += DFS(successors.get(i)) + "*";
+                    }
+
 
                 } else {
                     {
