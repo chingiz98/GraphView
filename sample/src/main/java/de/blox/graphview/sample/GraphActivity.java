@@ -114,7 +114,6 @@ public class GraphActivity extends AppCompatActivity {
                     }
 
 
-
                     if (probText.getText().toString().equals("")) {
                         Toast.makeText(GraphActivity.this, "Введите вероятность", Toast.LENGTH_SHORT).show();
                         return;
@@ -170,7 +169,7 @@ public class GraphActivity extends AppCompatActivity {
             }
 
             String rez = DFS(root);
-            Log.d("a" , rez);
+            Log.d("a", rez);
 
 
         }
@@ -355,7 +354,7 @@ public class GraphActivity extends AppCompatActivity {
         final Node node1 = new Node(new NodeData(getNodeText(), NodeData.TYPE_AND));
         final Node node2 = new Node(new NodeData(getNodeText(), NodeData.TYPE_OR));
         final Node node3 = new Node(new NodeData(getNodeText(), NodeData.TYPE_OR));
-        final Node node4 = new Node(new NodeData(getNodeText(), 0.5 , NodeData.TYPE_TERM, "x1"));
+        final Node node4 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x1"));
         final Node node5 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x2"));
         final Node node6 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x3"));
         final Node node7 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x4"));
@@ -390,18 +389,27 @@ public class GraphActivity extends AppCompatActivity {
 
 
                 if (((NodeData) currentNode.getData()).getType() == NodeData.TYPE_AND) {
-                    if(i == graph.successorsOf(currentNode).size() - 1)
+                    if (i == graph.successorsOf(currentNode).size() - 1)
                         a += DFS(successors.get(i));
                     else
                         a += DFS(successors.get(i)) + "*";
 
                 } else {
-                    if(i == graph.successorsOf(currentNode).size() - 1)
-                        a += DFS(successors.get(i)) + ")";
-                    else if (i == 0)
-                        a += "(" + DFS(successors.get(i)) + "+";
-                    else
-                        a += DFS(successors.get(i)) + "+";
+                    if (i == graph.successorsOf(currentNode).size() - 1)
+                        a += DFS(successors.get(i));
+                    else {
+                        if (a.equals("")) {
+                            a += "!(!" + DFS(successors.get(i)) + "*";
+                        } else if (i == graph.successorsOf(currentNode).size() - 1) {
+                            a += "!" + DFS(successors.get(i)) + ")";
+                        } else {
+                            a += "!" + DFS(successors.get(i));
+                        }
+
+
+                    }
+
+
                 }
 
             }
