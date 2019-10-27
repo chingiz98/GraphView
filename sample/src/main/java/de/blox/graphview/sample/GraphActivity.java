@@ -169,6 +169,28 @@ public class GraphActivity extends AppCompatActivity {
             }
 
             String rez = DFS(root);
+
+            //1-(1-(1-(1-x1)*(1-x2))) * (1-x3*x4)
+            boolean flag = false;
+            while (!flag)
+            {
+                if (rez.contains("!!"))
+                   rez = rez.replace("!!", "");
+                else
+                    flag = true;
+
+            }
+            Log.d("a", rez);
+            flag = false;
+            while (!flag)
+            {
+                if (rez.contains("!"))
+                    rez = rez.replace("!", "1-");
+                else
+                    flag = true;
+
+            }
+
             Log.d("a", rez);
 
 
@@ -351,9 +373,9 @@ public class GraphActivity extends AppCompatActivity {
         final Graph graph = new Graph();
 
 
-        final Node node1 = new Node(new NodeData(getNodeText(), NodeData.TYPE_AND));
+        final Node node1 = new Node(new NodeData(getNodeText(), NodeData.TYPE_OR));
         final Node node2 = new Node(new NodeData(getNodeText(), NodeData.TYPE_OR));
-        final Node node3 = new Node(new NodeData(getNodeText(), NodeData.TYPE_OR));
+        final Node node3 = new Node(new NodeData(getNodeText(), NodeData.TYPE_AND));
         final Node node4 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x1"));
         final Node node5 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x2"));
         final Node node6 = new Node(new NodeData(getNodeText(), 0.5, NodeData.TYPE_TERM, "x3"));
