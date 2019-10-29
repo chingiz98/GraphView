@@ -53,6 +53,7 @@ public class BuchheimWalkerActivity extends GraphActivity {
     public Graph createGraph() {
         final Graph graph = new Graph();
 
+        /*
 
         final Node node1 = new Node(getNodeText());
         final Node node2 = new Node(getNodeText());
@@ -81,6 +82,8 @@ public class BuchheimWalkerActivity extends GraphActivity {
         graph.addEdge(node4, node10);
         graph.addEdge(node4, node11);
         graph.addEdge(node11, node12);
+        */
+
 
         return graph;
     }

@@ -1,9 +1,11 @@
 package de.blox.graphview;
 
+import java.io.Serializable;
+
 /**
  *
  */
-public class Size {
+public class Size implements Serializable {
     private int width;
     private int height;
 

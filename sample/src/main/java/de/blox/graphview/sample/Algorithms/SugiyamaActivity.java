@@ -11,6 +11,8 @@ public class SugiyamaActivity extends GraphActivity {
     @Override
     public Graph createGraph() {
         final Graph graph = new Graph();
+        /*
+
         final Node node1 = new Node(getNodeText());
         final Node node2 = new Node(getNodeText());
         final Node node3 = new Node(getNodeText());
@@ -34,6 +36,8 @@ public class SugiyamaActivity extends GraphActivity {
         final Node node21 = new Node(getNodeText());
         final Node node22 = new Node(getNodeText());
         final Node node23 = new Node(getNodeText());
+
+
 
         graph.addEdge(node1, node13);
         graph.addEdge(node1, node21);
@@ -69,6 +73,8 @@ public class SugiyamaActivity extends GraphActivity {
         graph.addEdge(node19, node22);
         graph.addEdge(node21, node23);
         graph.addEdge(node22, node23);
+        */
+
         return graph;
     }
 

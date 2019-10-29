@@ -19,6 +19,7 @@ import de.blox.graphview.Algorithm;
 import de.blox.graphview.Edge;
 import de.blox.graphview.Graph;
 import de.blox.graphview.Node;
+import de.blox.graphview.NodeData;
 import de.blox.graphview.Size;
 import de.blox.graphview.edgerenderer.EdgeRenderer;
 
@@ -147,7 +148,7 @@ public class SugiyamaAlgorithm implements Algorithm {
                 final Iterator<Edge> iterator = edges.iterator();
                 while (iterator.hasNext()) {
                     Edge edge = iterator.next();
-                    final Node dummy = new Node(getDummyText());
+                    final Node dummy = new Node(new NodeData("BAN", 1));
                     final SugiyamaNodeData dummyNodeData = new SugiyamaNodeData();
                     dummyNodeData.dummy = true;
                     dummyNodeData.layer = indexNextLayer;

@@ -290,7 +290,7 @@ public class Graph {
         return nodes.contains(node);
     }
 
-    public boolean containsData(Object data) {
+    public boolean containsData(NodeData data) {
         for (Node node : nodes) {
             if (node.getData().equals(data)) {
                 return true;
@@ -300,7 +300,7 @@ public class Graph {
         return false;
     }
 
-    public Node getNode(Object data) {
+    public Node getNode(NodeData data) {
         for (Node node : nodes) {
             if (node.getData().equals(data)) {
                 return node;

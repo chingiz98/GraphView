@@ -60,7 +60,11 @@ public class BuchheimWalkerAlgorithm implements Algorithm {
     }
 
     private BuchheimWalkerNodeData getNodeData(Node node) {
-        return mNodeData.get(node);
+
+        BuchheimWalkerNodeData ob = mNodeData.get(node);
+        if(ob == null)
+            ob = mNodeData.get(node);
+        return ob;
     }
 
     private void firstWalk(Graph graph, Node node, int depth, int number) {

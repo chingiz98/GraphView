@@ -1,15 +1,21 @@
 package de.blox.graphview;
 
 
+import java.io.Serializable;
+
+
 /**
  *
  */
-public class Node {
+
+
+
+public class Node implements Serializable {
     private Vector pos;
-    private Object data;
+    private NodeData data;
     private Size size;
 
-    public Node(Object data) {
+    public Node(NodeData data) {
         this.data = data;
         setPos(new Vector());
         size = new Size(0, 0);
@@ -39,7 +45,7 @@ public class Node {
         this.pos.setY(y);
     }
 
-    public Object getData() {
+    public NodeData getData() {
         return data;
     }
 

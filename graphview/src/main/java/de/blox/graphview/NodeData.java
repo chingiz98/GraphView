@@ -1,7 +1,4 @@
-package de.blox.graphview.sample;
-
-import java.io.Serializable;
-
+package de.blox.graphview;
 
 public class NodeData {
     public static final int TYPE_AND = 1;
@@ -18,13 +15,13 @@ public class NodeData {
     private String var;
     private int type;
 
-    NodeData(String text, int type){
+    public NodeData(String text, int type){
         this.text = text;
         this.type = type;
         this.var = "no Value";
     }
 
-    NodeData(String text, double val, int type, String var){
+    public NodeData(String text, double val, int type, String var){
         this.val = val;
         this.text = text;
         this.type = type;

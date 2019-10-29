@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 
 import com.otaliastudios.zoom.ZoomLayout;
 
-public class GraphView extends ZoomLayout {
+import java.io.Serializable;
+
+public class GraphView extends ZoomLayout implements Serializable {
 
     private GraphNodeContainerView graphNodeContainerView;
 

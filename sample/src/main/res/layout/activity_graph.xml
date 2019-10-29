@@ -56,7 +56,7 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TERMINAL"
+                android:text="INIT"
                 android:id="@+id/term_rb"
                 android:layout_weight="1"/>
 
@@ -79,6 +79,14 @@
                 android:hint="Вероятность"
                 android:layout_weight="1"
                 android:inputType="none"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/damage_et"
+                android:hint="Ущерб"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
                 />
         </LinearLayout>
 
@@ -114,6 +122,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="CALCULATE"
+                style="?android:attr/buttonBarStyle"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"/>
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SAVE"
+                style="?android:attr/buttonBarStyle"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"/>
+            <Button
+                android:id="@+id/load_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="LOAD"
                 style="?android:attr/buttonBarStyle"
                 android:clickable="true"
                 android:background="?android:attr/selectableItemBackground"/>

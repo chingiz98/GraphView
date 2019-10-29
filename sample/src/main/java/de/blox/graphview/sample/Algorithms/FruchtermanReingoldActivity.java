@@ -11,6 +11,7 @@ public class FruchtermanReingoldActivity extends GraphActivity {
     @Override
     public Graph createGraph() {
         final Graph graph = new Graph();
+        /*
         final Node a = new Node(getNodeText());
         final Node b = new Node(getNodeText());
         final Node c = new Node(getNodeText());
@@ -28,6 +29,8 @@ public class FruchtermanReingoldActivity extends GraphActivity {
         graph.addEdge(f, c);
         graph.addEdge(g, c);
         graph.addEdge(h, g);
+
+*/
 
         return graph;
     }
